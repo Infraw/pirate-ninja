@@ -4,10 +4,13 @@ from bs4 import BeautifulSoup
 def get_soup(url):
     '''
     Retrive and parse HTML content from specified URL.
+    
     Args:
         url (str): The URL to fetch and parse.
+        
     Returns:
         BeautifulSoup object (if successfull) or an exception (if an error occurs).
+        
     Raises:
         request.RequestException: If an error occurs during HTTP request.
     '''
@@ -23,10 +26,13 @@ def get_soup(url):
 def get_proxy(proxy_list):
     '''
     Get proxies from proxy list.
+    
     Args:
         proxy_list (str): The file name of proxy list.
+        
     Returns:
         list: List of proxies (can contains duplicates) if successful.
+        
     Raises:
         FileNotFoundError: If the proxy list file is not found.
         IOError: If an error occurs while trying open the file.
@@ -42,3 +48,25 @@ def get_proxy(proxy_list):
         raise e
     except IOError as e:
         raise e
+    
+def ping_url(url):
+    '''
+    Send HTTP GET request to URL and check if it returns successfully.
+    
+    Args:
+        url (str): The URL to ping.
+        
+    Returns:
+        bool: True if the URL reachable and returns successfull response.
+        False otherwise.
+    '''
+    try:
+        response = requests.get(url)
+        # Check if the status code is in the range 2xx (indicating success)
+        if 200 <= response.status_code < 300:
+            return True
+        else:
+            return False
+    except requests.RequestException as e:
+        print("An error occured while sending the request (e.g., network issues):", e)
+        return False
