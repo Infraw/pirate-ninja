@@ -17,7 +17,7 @@ def get_soup(url):
     try:
         # Send HTTP GET request to url and parse it
         response = requests.get(url)
-        soup = BeautifulSoup(response.text, 'lxml')
+        soup = BeautifulSoup(response.text, 'html.parser')
         response.raise_for_status()
         return soup
     except requests.RequestException as e:
