@@ -17,8 +17,8 @@ def get_soup(url):
     try:
         # Send HTTP GET request to url and parse it
         response = requests.get(url)
-        soup = BeautifulSoup(response.text, 'html.parser')
         response.raise_for_status()
+        soup = BeautifulSoup(response.text, 'html.parser')
         return soup
     except requests.RequestException as e:
         print("An error occured while fetching data from {}".format(url), e)
