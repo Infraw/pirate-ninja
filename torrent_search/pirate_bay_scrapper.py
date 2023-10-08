@@ -90,3 +90,23 @@ def print_search_table(table):
     else:
         print("Table not found on the webpage.")
     return href_links
+
+def get_magnet(url):
+    '''
+    Get magnet link from target url in Pirate Bay.
+    
+    Args:
+        url (str) : Target url for scarp magnet.
+    
+    Returns
+        str or None : Magnet link if found, or None if no magnet link is found.  
+    '''
+    piratebay = requests.get(url)
+    soup = bs4.BeautifulSoup(piratebay.text, 'html.parser')
+    # Find magnet link using a CSS selector
+    magnet_link = soup.select_one('a[href^="magnet:?xt=urn:btih:"]')
+    if magnet_link:
+        magnet = magnet_link['href']
+    else:
+        magnet = None
+    return magnet
