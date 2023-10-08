@@ -70,3 +70,24 @@ def ping_url(url):
     except requests.RequestException as e:
         print("An error occured while sending the request (e.g., network issues):", e)
         return False
+    
+def get_choice(length):
+    '''
+    Get the user's choice for torrent number within a valid range.
+    
+    Args:
+        length (int): The max valid number the user can choose
+    
+    Returns:
+        int: The user's chosen torrent number
+    '''
+    while True:
+        try:
+            num = int(input('Enter torrent number: '))
+            if 1 <= num <= length:
+                break
+            else:
+                print('Error: Input is not within the valid range.')
+        except ValueError:
+            print('Invalid input. Input must be integer.')
+    return num
