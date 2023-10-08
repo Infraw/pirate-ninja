@@ -6,7 +6,7 @@ from torrent_search.pirate_bay_scrapper import get_magnet, get_search_table, pri
 def main():
     parser = argparse.ArgumentParser(prog='Pirate Ninja',
                                      description='A command-line torrent search tool')
-    parser.add_argument('-p', '--piratebay', metavar='query', type=str, help='Search on Pirate Bay.')
+    parser.add_argument('-p', '--piratebay', metavar='query', type=str,required=True ,help='Search on Pirate Bay.')
     args = parser.parse_args()
     
     if args.piratebay:
