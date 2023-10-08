@@ -20,10 +20,10 @@ def main():
         torrent_count = len(url_list)
         # Get input from user in range of torrent count. 
         choice = get_choice(torrent_count) - 1 # Extract 1 because results are enumerated from 1
-        # Get magnet from sublink
-        magnet = get_magnet(url_list[choice])
-        if magnet is str:
-            webbrowser.open(magnet)
+        # Get magnet hash from sublink
+        magnet_hash = get_magnet(url_list[choice])
+        if isinstance(magnet_hash, str):
+            webbrowser.open(magnet_hash)
 
 if __name__ == '__main__':
     main()
