@@ -33,3 +33,60 @@ def get_search_table(query, proxy_list):
     if table is None:
         raise Exception("Table not found on the webpage.")
     return table
+
+def print_search_table(table):
+    '''
+    Print data from HTML table about search results.
+    
+    Args:
+        table (BeatifulSoup): The bs4 object containing the table.
+    
+    Returns:
+        list: A list of links found in the table
+    
+    Prints:
+        - Number
+        - Type
+        - Name
+        - Uploaded
+        - Size
+        - Seeders
+        - Leechers
+        - ULed by
+        - Link
+        - "Table not found" if the param is None.
+    '''
+    href_links = []
+    if table:
+        href = None
+        # Find all table rows
+        rows = table.find_all("tr") 
+        # Skip the header row (index 0) and enumerate from 1
+        for row_num, row in enumerate(rows[1:], start=1): 
+            columns = row.find_all("td") 
+            if len(columns) >= 7:
+                type_column = columns[0].get_text(strip=True)
+                name_column = columns[1].find("a")
+                uploaded_column = columns[2].get_text(strip=True)
+                size_column = columns[4].get_text(strip=True)
+                seeders_column = columns[5].get_text(strip=True)
+                leechers_column = columns[6].get_text(strip=True)
+                uled_by_column = columns[7].get_text(strip=True)
+
+                if name_column:
+                    href = name_column.get("href")
+                    href_links.append(href)
+
+                print("Number:", row_num)
+                print("Type:", type_column)
+                print("Name:", name_column.get_text(strip=True) if name_column else "N/A")
+                print("Uploaded:", uploaded_column)
+                print("Size:", size_column)
+                print("Seeders:", seeders_column)
+                print("Leechers:", leechers_column)
+                print("ULed by:", uled_by_column)
+                print("Link:", href)
+                print("\n")
+    else:
+        print("Table not found on the webpage.")
+    return href_links
