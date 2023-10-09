@@ -2,15 +2,15 @@
 Pirate Ninja is a Python-based command-line tool that allows you to search for torrents on PirateBay. It provides find and access torrent files from your terminal.
 
 <h2>Features</h2>
-    Search for torrents on PirateBay via terminal.
-    Retrieve torrent details such as name, size, seeders, and leechers.
-    Download torrents using magnet links.
+Search for torrents on PirateBay via terminal.
+Retrieve torrent details such as name, size, seeders, and leechers.
+Download torrents using magnet links.
 
 <h2>Installation</h2>
 Before using Pirate Ninja, ensure you have Python 3.x and the required dependencies installed:
-```
-pip install -r requirements.txt
-```
+
+    pip install -r requirements.txt
+
 
 <h2>Usage</h2>
 Pirate Ninja provides a command-line interface with the following options:
@@ -19,9 +19,9 @@ Pirate Ninja provides a command-line interface with the following options:
 
 <h2>Example Usage</h2>
 Search for a torrent on PirateBay:
-```
-python3 pirate_ninja_cli.py -p "your_query_here"
-```
+
+    python3 pirate_ninja_cli.py -p "your_query_here"
+
 
 <h2>Contributing</h2>
 We welcome contributions to Pirate Ninja! If you'd like to add new features, improve existing code, or fix issues, please feel free to open a pull request.
