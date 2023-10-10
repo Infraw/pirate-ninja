@@ -2,7 +2,7 @@ from . import utils
 import requests
 import bs4
 
-def get_search_table(query, proxy_list):
+def get_pirate_search(query, proxy_list):
     '''
     Get search table data from Pirate Bay.
     
@@ -34,7 +34,7 @@ def get_search_table(query, proxy_list):
         raise Exception("Table not found on the webpage.")
     return table
 
-def print_search_table(table):
+def print_pirate_search(table):
     '''
     Print data from HTML table about search results.
     
