@@ -1,5 +1,7 @@
 import utils
 import requests
+import bs4
+import webbrowser
 
 
 def get_libgen_search(query, proxies):
@@ -7,26 +9,28 @@ def get_libgen_search(query, proxies):
     query = query.replace(' ', '%20')
     for proxy in proxies:
         if utils.ping_url(proxy):
-            url = proxy + 'search.php?req={}'.format(query)
+            true_proxy = proxy
+            full_url = proxy + 'search.php?req={}'.format(query)
             break
     else:
         raise Exception('Error: No reachable proxy found.')
-    soup = utils.get_soup(url)
+    soup = utils.get_soup(full_url)
     # Extract content
     if soup is None:
         raise Exception('Error: Soup cannot be None type.')
     table = soup.find('table', attrs={'class':'c'})
     if table is None:
         raise Exception('Search results not found on page.')
-    return table
+    return table , true_proxy
 
-def extract_libgen_data(table):
+def extract_libgen_data(table, url):
     
     # Initialize an empty list to store the data
     data = []
+    href_links = []
 
     # Loop through the rows of the table
-    for row in table.find_all('tr'):
+    for row in table.find_all('tr')[1:]:
         # Initialize an empty dictionary for each row
         row_data = {}
 
@@ -42,7 +46,16 @@ def extract_libgen_data(table):
             row_data['Language'] = cells[6].text.strip()
             row_data['Size'] = cells[7].text.strip()
             row_data['Extension'] = cells[8].text.strip()
+            row_data['Link'] = url + cells[2].find('a', id=row_data['ID']).get('href')
+            href_links.append(row_data['Link'])
 
             # Append  row data to the list
             data.append(row_data)
-    return data
+    return data, href_links
+
+def show_data(data):
+    for idx, packet in enumerate(data, start=1):
+        print('Number:', idx)
+        for key, val in packet.items():
+            print(key,':', val)
+        print('\n')
