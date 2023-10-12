@@ -59,3 +59,17 @@ def show_data(data):
         for key, val in packet.items():
             print(key,':', val)
         print('\n')
+
+def libgen_magnet(url):
+    
+    page = requests.get(url)
+    soup = bs4.BeautifulSoup(page.text, 'html.parser')
+    a_tag = soup.find_all('a')
+    magnet_hashes = []
+    if a_tag:
+        for item in a_tag:
+            href_link = item.get('href')
+            if href_link[:6] == 'magnet':
+                magnet_hashes.append(href_link)
+ 
+    return magnet_hashes
