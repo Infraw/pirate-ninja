@@ -1,10 +1,20 @@
 import utils
 import requests
 import bs4
-import webbrowser
-
 
 def get_libgen_search(query, proxies):
+    '''
+    Perform a search on Library Genesis and retrieve search results with a working proxy.
+    
+    Args:
+        query (str): The search query.
+        proxies (list of str): A list of URLs to attempt the search.
+    
+    Returns:
+        tuple: A tuple contains two elements:
+            - BeatifulSoup object: The search results parsed using BeautifulSoup.
+            - str: The used working proxy URL. 
+    '''
     # Format query for url
     query = query.replace(' ', '%20')
     for proxy in proxies:
@@ -25,11 +35,10 @@ def get_libgen_search(query, proxies):
 
 def extract_libgen_data(table, url):
     
-    # Initialize an empty list to store the data
+    # Initialize an empty list to store data
     data = []
     href_links = []
 
-    # Loop through the rows of the table
     for row in table.find_all('tr')[1:]:
         # Initialize an empty dictionary for each row
         row_data = {}
@@ -53,15 +62,31 @@ def extract_libgen_data(table, url):
             data.append(row_data)
     return data, href_links
 
-def show_data(data):
+def show_libgen_data(data):
+    '''
+    Display data retrieved from Library Genesis.
+    
+    Args:
+        data (list of dict): List of dictionaries, where each one represents data packet.
+    
+    '''
     for idx, packet in enumerate(data, start=1):
         print('Number:', idx)
+        # Example packet = {'ID': '123', 'Title': 'Lorem Ipsum' ...}
         for key, val in packet.items():
             print(key,':', val)
         print('\n')
 
 def libgen_magnet(url):
+    '''
+    Extract magnet links from chosen Library Genesis search result.
     
+    Args:
+        url (str): The URL of LibGen page to extract magnet.
+    
+    Returns:
+        list of str: A list of magnet links found on page.
+    '''
     page = requests.get(url)
     soup = bs4.BeautifulSoup(page.text, 'html.parser')
     a_tag = soup.find_all('a')
@@ -69,6 +94,7 @@ def libgen_magnet(url):
     if a_tag:
         for item in a_tag:
             href_link = item.get('href')
+            # Check if the href starts with 'magnet' (assume magnet link) 
             if href_link[:6] == 'magnet':
                 magnet_hashes.append(href_link)
  
