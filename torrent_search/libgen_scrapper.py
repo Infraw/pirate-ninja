@@ -34,7 +34,29 @@ def get_libgen_search(query, proxies):
     return table , true_proxy
 
 def extract_libgen_data(table, url):
+    '''
+    Extracts data from search table on Library Genesis (LibGen) search page.
     
+    Args:
+        table (bs4.element.Tag): A BeautifulSoup Tag object representing the table of search info.
+        url (str): The base URL for complete book links.
+        
+    Returns:
+        tuple: A tuple containing two elements:
+            - data (list of dict): A list of dictionaries where each one represents book data.
+                Each dictionary contains the following keys:
+                - 'ID' (str): The book's unique identifier.
+                - 'Authors' (str): The author(s) of the book.
+                - 'Title' (str): The title of the book.
+                - 'Publisher' (str): The book's publisher.
+                - 'Year' (str): The publication year of the book.
+                - 'Pages' (str): The number of pages in book.
+                - 'Language' (str): The language of the book.
+                - 'Size' (str): The size of the book file.
+                - 'Extension' (str): The file extension (e.g., PDF, EPUB).
+                - 'Link' (str): The full URL to book's details page.
+            - href_links (list of str): A list of URLs to the details pages of extracted books.
+    '''
     # Initialize an empty list to store data
     data = []
     href_links = []
