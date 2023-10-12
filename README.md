@@ -1,4 +1,4 @@
-# Pirate Ninja
+# Pirate Ninja ![Python Version](https://img.shields.io/badge/python-3.8%2B-blue) [![License](https://img.shields.io/badge/license-GPLv3-green)](LICENSE)
 Pirate Ninja is a Python-based command-line tool that allows you to search for torrents on PirateBay and books on LibGen.  
 It provides find and access torrent files from your terminal.  
 
