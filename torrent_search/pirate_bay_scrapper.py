@@ -91,7 +91,7 @@ def print_pirate_search(table):
         print("Table not found on the webpage.")
     return href_links
 
-def get_magnet(url):
+def piratebay_magnet(url):
     '''
     Get magnet link from target url in Pirate Bay.
     
